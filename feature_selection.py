@@ -57,7 +57,8 @@ def feature_voting(intersection_set, average_set, selection_length, dataset):
     feature_counts = Counter(all_features)
 
     voting_ranking = sorted(feature_counts.items(), key=lambda x: x[1], reverse=True)
-    voting_columns = [f[0] for f in voting_ranking[:selection_length]]
+    filtered_voting_ranking = [f for f in voting_ranking if f[1] == 2]
+    voting_columns = [f[0] for f in filtered_voting_ranking[:selection_length]]
 
     exportLogFeatureSelection(dataset, "voting", voting_ranking)
     

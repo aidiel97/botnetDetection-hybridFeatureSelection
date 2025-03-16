@@ -32,19 +32,20 @@ Includes several steps:
 ## 🚀 How to Run the Program
 ### 1️⃣ Environment Setup
 1. Create a new **.env** file or duplicate **.env.example**.
-2. Specify dataset locations in the following variables:
+2. Create 3 Folders (CTU-13, NCC and NCC-2), then compy the directorurl into .env file (CTU_DIR, NCC_DIR, NCC_2_DIR)
+3. Specify dataset locations in the following variables:
    ```
    DATA_TRAINING_LOCATION=path_to_training_dataset
    DATA_TESTING_LOCATION=path_to_testing_dataset
    ```
-3. Ensure **Python 3** is installed.
-4. Install dependencies by running:
+4. Ensure **Python 3** is installed.
+5. Install dependencies by running:
    ```
    python install.py  
    or  
    python3 install.py
    ```
-5. Run the main program:
+6. Run the main program:
    ```
    python main.py  
    or  

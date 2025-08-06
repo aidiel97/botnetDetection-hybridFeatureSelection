@@ -10,6 +10,7 @@ import time
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
+import datasets
 import feature_selection as featureSelection
 import pre_processing as preprocessing
 import classification as classification
@@ -17,11 +18,10 @@ import classification as classification
 from dotenv import load_dotenv
 from datetime import datetime
 
-def loopAllInDataset(selectedAlgorithm, dirName):
-    file_names = os.listdir(dirName)
-    for f in file_names:
-        print("====RUN data: ",dirName+f)
-        mainModule(selected_algorithm,dirName+f)
+def loopAllInDataset(selectedAlgorithm):
+    for f in datasets.list_dataset:
+        print("====RUN data: ",f)
+        mainModule(selected_algorithm,f)
 
 def mainModule(selected_algorithm, file):
     now = datetime.now()
@@ -153,13 +153,7 @@ def mainModule(selected_algorithm, file):
 
 
 if __name__ == "__main__":
-    load_dotenv()
-    CTU_DIR = os.getenv('CTU_DIR')
-    NCC_DIR = os.getenv('NCC_DIR')
-    NCC_2_DIR = os.getenv('NCC_2_DIR')
 
     selected_algorithm = classification.menu()
     
-    loopAllInDataset(selected_algorithm, CTU_DIR)
-    loopAllInDataset(selected_algorithm, NCC_DIR)
-    loopAllInDataset(selected_algorithm, NCC_2_DIR)
+    loopAllInDataset(selected_algorithm)

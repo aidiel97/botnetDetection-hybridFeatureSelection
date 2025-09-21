@@ -5,8 +5,16 @@ load_dotenv()
 CTU_DIR = os.getenv('CTU_DIR')
 NCC_DIR = os.getenv('NCC_DIR')
 NCC_2_DIR = os.getenv('NCC_2_DIR')
+UNSW_NB15_DIR = os.getenv('UNSW_NB15_DIR')
+
+detail_features =UNSW_NB15_DIR+'/NUSW-NB15_features.csv'
 
 list_dataset = [
+  UNSW_NB15_DIR+'/UNSW-NB15_1.csv',
+  UNSW_NB15_DIR+'/UNSW-NB15_2.csv',
+  UNSW_NB15_DIR+'/UNSW-NB15_3.csv',
+  UNSW_NB15_DIR+'/UNSW-NB15_4.csv',
+
   CTU_DIR+'/1/capture20110810.binetflow',
   CTU_DIR+'/2/capture20110811.binetflow',
   CTU_DIR+'/3/capture20110812.binetflow',

@@ -78,3 +78,20 @@ def main(pd, data):
 	})
 
 	return data
+
+def unsw(data):
+	data['srcip'] = data['srcip'].apply(ipToInteger).fillna(0).astype(int)
+	data['dstip'] = data['dstip'].apply(ipToInteger).fillna(0).astype(int)
+	data['proto'] = data['proto'].map(protoDict).fillna(0).astype(int)
+	data['sport']= data['sport'].apply(port).fillna(0)
+	data['dsport']= data['dsport'].apply(port).fillna(0)
+
+	# remove other object type columns, exclude ip
+	exclude_cols = ['srcip', 'dstip', 'attack_cat']
+	obj_cols = data.select_dtypes(include=['object']).columns
+	drop_cols = [col for col in obj_cols if col not in exclude_cols]
+
+	data = data.drop(columns=drop_cols)
+	data = data.fillna(0)
+
+	return data

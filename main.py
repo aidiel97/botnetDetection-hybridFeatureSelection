@@ -27,20 +27,34 @@ def mainModule(selected_algorithm, file):
     now = datetime.now()
     
     OUT_DIR = os.getenv('OUT_DIR')
+    UNSW_NB15_DIR = os.getenv('UNSW_NB15_DIR')
 
     print("===============| Load Data |=================")
     startLoad = time.time()
     data = pd.read_csv(file)
-    data['Label'] = data['Label'].apply(preprocessing.label)
+    if UNSW_NB15_DIR in file:
+        print("===============| Read and defining column UNSW-NB15")
+        detail_columns = pd.read_csv(datasets.detail_features, encoding="cp1252")
+        data.columns = detail_columns['Name'].tolist()
+
+    else:
+        data['Label'] = data['Label'].apply(preprocessing.label)
+    
     loadDuration = time.time() - startLoad
     
     print("===============| Transformation |=================")
     startTransform = time.time()
-    data  = preprocessing.main(pd, data)
+
+    if UNSW_NB15_DIR in file:
+        exclude_features = ['srcip', 'dstip', 'Stime', 'Ltime', 'attack_cat', 'Label']
+        data  = preprocessing.unsw(data)
+    else:
+        exclude_features = ['StartTime', 'Label']
+        data  = preprocessing.main(pd, data)
+    
     print(data.isnull().sum())
     transformDuration = time.time() - startTransform
 
-    exclude_features = ['StartTime', 'Label']
     data_excluded = data[exclude_features]
     data_features = data.drop(columns=exclude_features)
 
@@ -53,7 +67,11 @@ def mainModule(selected_algorithm, file):
     normalizationDuration = time.time() - startNormalization
 
     target_column = 'Label'
-    X = data_final.drop(columns=[target_column])
+    if UNSW_NB15_DIR in file:
+        X = data_final.drop(columns=exclude_features)
+    else:
+        X = data_final.drop(columns=[target_column])
+    
     y = data_final[target_column]
 
     print("===============| Feature Selection |=================")

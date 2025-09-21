@@ -129,6 +129,7 @@ def exportLogFeatureSelection(dataset, name, feature):
     dataset = dataset.replace("/","-")
     dataset = dataset.replace(":","")
     dataset = dataset.replace(".binetflow","/")
+    dataset = dataset.replace(".csv","/")
     folder = OUT_DIR+dataset
     checkDir(folder)
     filename = folder+name+"_fs_log.csv"

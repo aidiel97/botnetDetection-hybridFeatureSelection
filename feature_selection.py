@@ -126,6 +126,15 @@ def checkDir(directory):
 
 def exportLogFeatureSelection(dataset, name, feature):
     OUT_DIR = os.getenv('OUT_DIR')
+    CTU_DIR = os.getenv('CTU_DIR')
+    NCC_DIR = os.getenv('NCC_DIR')
+    NCC_2_DIR = os.getenv('NCC_2_DIR')
+    UNSW_NB15_DIR = os.getenv('UNSW_NB15_DIR')
+    
+    dataset = dataset.replace(CTU_DIR,"")
+    dataset = dataset.replace(NCC_DIR,"")
+    dataset = dataset.replace(NCC_2_DIR,"")
+    dataset = dataset.replace(UNSW_NB15_DIR,"")
     dataset = dataset.replace("/","-")
     dataset = dataset.replace(":","")
     dataset = dataset.replace(".binetflow","/")
